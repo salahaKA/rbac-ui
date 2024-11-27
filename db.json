@@ -13,9 +13,21 @@
       "status": "Active"
     },
     {
-      "id": "edfd",
-      "username": "Waazi",
-      "role": "sss",
+      "id": "f55e",
+      "username": "Waaazi",
+      "role": "Playing",
+      "status": "Inactive"
+    },
+    {
+      "id": "684f",
+      "username": "Smla",
+      "role": "User",
+      "status": "Active"
+    },
+    {
+      "id": "ab85",
+      "username": "Soila",
+      "role": "Cook",
       "status": "Active"
     }
   ],
@@ -46,18 +58,17 @@
       ]
     },
     {
-      "id": "91a4",
-      "name": "Admin",
-      "permissions": [
-        "Read",
-        "Write"
-      ]
-    },
-    {
       "id": "452b",
       "name": "Admin",
       "permissions": [
         "Read"
+      ]
+    },
+    {
+      "id": "9bf0",
+      "name": "User",
+      "permissions": [
+        "Write"
       ]
     }
   ]
