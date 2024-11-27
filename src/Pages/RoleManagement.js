@@ -21,13 +21,12 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
-
 function RoleManagement() {
   const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [open, setOpen] = useState(false);
-  
+  const [editingRole, setEditingRole] = useState(null); // Store the role being edited
   const [newRole, setNewRole] = useState({
     name: "",
     permissions: [],
@@ -59,26 +58,50 @@ function RoleManagement() {
         console.error("Error deleting role:", err);
       });
   };
-  // Open the Add Role dialog
-  const handleOpen = () => setOpen(true);
 
-  // Close the Add Role dialog
+  // Open the Add Role dialog
+  const handleOpen = (role = null) => {
+    setEditingRole(role); // If editing, set the role being edited
+    setNewRole(role || { name: "", permissions: [] });
+    setOpen(true);
+  };
+
+  // Close the Add/Edit Role dialog
   const handleClose = () => {
     setOpen(false);
+    setEditingRole(null);
     setNewRole({ name: "", permissions: [] });
   };
 
-  // Handle form submission
-  const handleAddRole = () => {
-    axios
-      .post("http://localhost:5000/roles", newRole)
-      .then((response) => {
-        setRoles([...roles, response.data]); // Add the new role to the table
-        handleClose();
-      })
-      .catch((err) => {
-        console.error("Error adding role:", err);
-      });
+  // Handle form submission (Add or Update Role)
+  const handleSaveRole = () => {
+    if (editingRole) {
+      // Update the existing role
+      axios
+        .put(`http://localhost:5000/roles/${editingRole.id}`, newRole)
+        .then((response) => {
+          setRoles(
+            roles.map((role) =>
+              role.id === editingRole.id ? response.data : role
+            )
+          );
+          handleClose();
+        })
+        .catch((err) => {
+          console.error("Error updating role:", err);
+        });
+    } else {
+      // Add a new role
+      axios
+        .post("http://localhost:5000/roles", newRole)
+        .then((response) => {
+          setRoles([...roles, response.data]); // Add the new role to the table
+          handleClose();
+        })
+        .catch((err) => {
+          console.error("Error adding role:", err);
+        });
+    }
   };
 
   // Update form fields
@@ -86,30 +109,6 @@ function RoleManagement() {
     const { name, value } = e.target;
     setNewRole((prev) => ({ ...prev, [name]: value }));
   };
-
-  // // Handle form submission
-  // const handleAddRole = () => {
-  //   const roleData = {
-  //     ...newRole,
-  //     permissions: newRole.permissions.split(",").map((p) => p.trim()), // Split permissions by comma
-  //   };
-
-  //   axios
-  //     .post("http://localhost:5000/roles", roleData)
-  //     .then((response) => {
-  //       setRoles([...roles, response.data]); // Add the new role to the table
-  //       handleClose();
-  //     })
-  //     .catch((err) => {
-  //       console.error("Error adding role:", err);
-  //     });
-  // };
-
-  // // Update form fields
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setNewRole((prev) => ({ ...prev, [name]: value }));
-  // };
 
   return (
     <Box>
@@ -120,7 +119,7 @@ function RoleManagement() {
         variant="contained"
         color="primary"
         sx={{ mb: 2 }}
-        onClick={handleOpen}
+        onClick={() => handleOpen()}
       >
         Add Role
       </Button>
@@ -150,6 +149,7 @@ function RoleManagement() {
                     color="secondary"
                     size="small"
                     sx={{ mr: 1 }}
+                    onClick={() => handleOpen(role)} // Open for editing
                   >
                     Edit
                   </Button>
@@ -167,9 +167,10 @@ function RoleManagement() {
           </TableBody>
         </Table>
       )}
-      {/* Add Role Dialog */}
+
+      {/* Add/Edit Role Dialog */}
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add Role</DialogTitle>
+        <DialogTitle>{editingRole ? "Edit Role" : "Add Role"}</DialogTitle>
         <DialogContent>
           <Typography variant="subtitle1">Role Name:</Typography>
           <Select
@@ -189,16 +190,7 @@ function RoleManagement() {
               </MenuItem>
             ))}
           </Select>
-          {/* <TextField
-            autoFocus
-            margin="dense"
-            name="name"
-            label="Role Name"
-            type="text"
-            fullWidth
-            value={newRole.name}
-            onChange={handleChange}
-          /> */}
+
           <Typography variant="subtitle1" sx={{ mt: 2 }}>
             Permissions:
           </Typography>
@@ -230,8 +222,8 @@ function RoleManagement() {
           <Button onClick={handleClose} color="secondary">
             Cancel
           </Button>
-          <Button onClick={handleAddRole} color="primary">
-            Add Role
+          <Button onClick={handleSaveRole} color="primary">
+            {editingRole ? "Save Changes" : "Add Role"}
           </Button>
         </DialogActions>
       </Dialog>

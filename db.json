@@ -29,6 +29,12 @@
       "username": "Soila",
       "role": "Cook",
       "status": "Active"
+    },
+    {
+      "id": "9b45",
+      "username": "Sfa",
+      "role": "Cook",
+      "status": "Active"
     }
   ],
   "roles": [
@@ -58,15 +64,15 @@
       ]
     },
     {
-      "id": "452b",
-      "name": "Admin",
+      "id": "fa91",
+      "name": "User",
       "permissions": [
-        "Read"
+        "Write"
       ]
     },
     {
-      "id": "9bf0",
-      "name": "User",
+      "id": "3c33",
+      "name": "Role",
       "permissions": [
         "Write"
       ]
