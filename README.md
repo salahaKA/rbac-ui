@@ -58,3 +58,13 @@ Created mock API endpoints using axios for CRUD operations (create, read, update
 Simulated server responses to validate functionality and display real-time data changes in the UI.
 
 ##########################################
+**Technology Used**
+Frontend Development:
+React: For building the user interface and implementing component-based architecture.
+Material-UI (MUI): For creating a responsive, clean, and interactive UI with pre-designed components.
+
+Backend Simulation:
+JSON Server: Used as a mock API to simulate server interactions for CRUD operations on users and roles.
+
+Deployment:
+Netlify: For hosting and deploying the project, providing a live URL for access.
