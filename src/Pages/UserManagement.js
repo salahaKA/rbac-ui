@@ -14,22 +14,15 @@ import {
   DialogTitle,
   DialogContent,
   Dialog,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Select,
 } from "@mui/material";
 import axios from "axios";
-
 
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [open, setOpen] = useState(false);
-  const [editMode, setEditMode]=useState(false);
-  const[currentUser, setCurrentUser]= useState(null);
+  const [open, setOpen] = useState(false)
   const [newUser,setNewUser]=useState({
     username: "",
     role: "",
@@ -61,59 +54,26 @@ const UserManagement = () => {
       });
   };
 
-  // Open Add/Edit User modal
-  const handleOpen = (user = null) => {
-    if (user) {
-      // Edit mode
-      setEditMode(true);
-      setCurrentUser(user);
-      setNewUser(user);
-    } else {
-      // Add mode
-      setEditMode(false);
-      setNewUser({ username: "", role: "", status: "Active" });
-    }
-    setOpen(true);
-  };
+  // Open Add User modal
+  const handleOpen = () => setOpen(true);
 
-
-   // Close Add/Edit User modal
-   const handleClose = () => {
+  // Close Add User modal
+  const handleClose = () => {
     setOpen(false);
     setNewUser({ username: "", role: "", status: "Active" });
-    setEditMode(false);
-    setCurrentUser(null);
   };
 
-  // Handle form submission for adding/editing a user
-  const handleSaveUser = () => {
-    if (editMode) {
-      // Update existing user
-      axios
-        .put(`http://localhost:5000/users/${currentUser.id}`, newUser)
-        .then((response) => {
-          setUsers(
-            users.map((user) =>
-              user.id === currentUser.id ? response.data : user
-            )
-          );
-          handleClose();
-        })
-        .catch((err) => {
-          console.error("Error updating user:", err);
-        });
-    } else {
-      // Add new user
-      axios
-        .post("http://localhost:5000/users", newUser)
-        .then((response) => {
-          setUsers([...users, response.data]);
-          handleClose();
-        })
-        .catch((err) => {
-          console.error("Error adding user:", err);
-        });
-    }
+  // Handle form submission
+  const handleAddUser = () => {
+    axios
+      .post("http://localhost:5000/users", newUser)
+      .then((response) => {
+        setUsers([...users, response.data]); // Add new user to the table
+        handleClose();
+      })
+      .catch((err) => {
+        console.error("Error adding user:", err);
+      });
   };
 
   // Update form fields
@@ -158,7 +118,6 @@ const UserManagement = () => {
                     color="secondary"
                     size="small"
                     sx={{ mr: 1 }}
-                    onClick={() => handleOpen(user)}
                   >
                     Edit
                   </Button>
@@ -178,7 +137,7 @@ const UserManagement = () => {
       )}
       {/* Add User Dialog */}
       <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>{editMode ? "Edit User" : "Add User"}</DialogTitle>
+        <DialogTitle>Add User</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -199,26 +158,22 @@ const UserManagement = () => {
             value={newUser.role}
             onChange={handleChange}
           />
-
-<FormControl fullWidth margin="dense">
-            <InputLabel>Status</InputLabel>
-            <Select
-              name="status"
-              value={newUser.status}
-              onChange={handleChange}
-            >
-              <MenuItem value="Active">Active</MenuItem>
-              <MenuItem value="Inactive">Inactive</MenuItem>
-            </Select>
-          </FormControl>
-          
+          <TextField
+            margin="dense"
+            name="status"
+            label="Status"
+            type="text"
+            fullWidth
+            value={newUser.status}
+            onChange={handleChange}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="secondary">
             Cancel
           </Button>
-          <Button onClick={handleSaveUser} color="primary">
-            {editMode ? "Save Changes" : "Add"}
+          <Button onClick={handleAddUser} color="primary">
+            Add
           </Button>
         </DialogActions>
       </Dialog>

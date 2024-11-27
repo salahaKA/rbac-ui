@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "2",
-      "username": "Jane Smith",
+      "username": "Jane Smit",
       "role": "User",
       "status": "Inactive"
     },
@@ -10,6 +10,12 @@
       "id": "fdd2",
       "username": "code_study4",
       "role": "Roler",
+      "status": "Active"
+    },
+    {
+      "id": "edfd",
+      "username": "Waazi",
+      "role": "sss",
       "status": "Active"
     }
   ],
@@ -41,6 +47,14 @@
     },
     {
       "id": "91a4",
+      "name": "Admin",
+      "permissions": [
+        "Read",
+        "Write"
+      ]
+    },
+    {
+      "id": "452b",
       "name": "Admin",
       "permissions": [
         "Read"
