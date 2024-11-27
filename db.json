@@ -1,11 +1,62 @@
 {
-    "users": [
-      { "id": 1, "username": "SalahaKA", "role": "Admin", "status": "Active" },
-      { "id": 2, "username": "Jane Smith", "role": "User", "status": "Inactive" }
-    ],
-    "roles": [
-      { "id": 1, "name": "Admin", "permissions": ["Read", "Write", "Delete"] },
-      { "id": 2, "name": "User", "permissions": ["Read"] }
-    ]
-  }
-  
+  "users": [
+    {
+      "id": "1",
+      "username": "SalahaKA",
+      "role": "Admin",
+      "status": "Active"
+    },
+    {
+      "id": "2",
+      "username": "Jane Smith",
+      "role": "User",
+      "status": "Inactive"
+    },
+    {
+      "id": "d674",
+      "username": "admin",
+      "role": "Admin",
+      "status": "Inactive"
+    },
+    {
+      "id": "fdd2",
+      "username": "code_study4",
+      "role": "Roler",
+      "status": "Active"
+    }
+  ],
+  "roles": [
+    {
+      "id": "1",
+      "name": "Admin",
+      "permissions": [
+        "Read",
+        "Write",
+        "Delete"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "User",
+      "permissions": [
+        "Read"
+      ]
+    },
+    {
+      "id": "ba1a",
+      "name": "User",
+      "permissions": [
+        "Read",
+        "Write",
+        "Delete"
+      ]
+    },
+    {
+      "id": "7d25",
+      "name": "User",
+      "permissions": [
+        "Write"
+      ]
+    }
+  ]
+}

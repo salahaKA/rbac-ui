@@ -9,13 +9,30 @@ import {
   Box,
   Typography,
   CircularProgress,
+  TextField,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  Dialog,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
 } from "@mui/material";
 import axios from "axios";
+
+
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [open, setOpen] = useState(false)
+  const [newUser,setNewUser]=useState({
+    username: "",
+    role: "",
+    status: "Active",
+  });
 
   useEffect(() => {
     axios
@@ -42,12 +59,40 @@ const UserManagement = () => {
       });
   };
 
+  // Open Add User modal
+  const handleOpen = () => setOpen(true);
+
+  // Close Add User modal
+  const handleClose = () => {
+    setOpen(false);
+    setNewUser({ username: "", role: "", status: "Active" });
+  };
+
+  // Handle form submission
+  const handleAddUser = () => {
+    axios
+      .post("http://localhost:5000/users", newUser)
+      .then((response) => {
+        setUsers([...users, response.data]); // Add new user to the table
+        handleClose();
+      })
+      .catch((err) => {
+        console.error("Error adding user:", err);
+      });
+  };
+
+  // Update form fields
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewUser((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
     <Box>
       <Typography variant="h4" gutterBottom>
         User Management
       </Typography>
-      <Button variant="contained" color="primary" sx={{ mb: 2 }}>
+      <Button variant="contained" color="primary" sx={{ mb: 2 }} onClick={handleOpen}>
         Add User
       </Button>
       {loading ? (
@@ -95,6 +140,52 @@ const UserManagement = () => {
           </TableBody>
         </Table>
       )}
+      {/* Add User Dialog */}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Add User</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            name="username"
+            label="Username"
+            type="text"
+            fullWidth
+            value={newUser.username}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            name="role"
+            label="Role"
+            type="text"
+            fullWidth
+            value={newUser.role}
+            onChange={handleChange}
+          />
+
+<FormControl fullWidth margin="dense">
+            <InputLabel>Status</InputLabel>
+            <Select
+              name="status"
+              value={newUser.status}
+              onChange={handleChange}
+            >
+              <MenuItem value="Active">Active</MenuItem>
+              <MenuItem value="Inactive">Inactive</MenuItem>
+            </Select>
+          </FormControl>
+          
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleAddUser} color="primary">
+            Add
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
