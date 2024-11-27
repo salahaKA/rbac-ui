@@ -32,6 +32,8 @@ function RoleManagement() {
     permissions: [],
   });
 
+  const [userRoles, setUserRoles] = useState([]);
+
   // Fetch roles from the mock API
   useEffect(() => {
     axios
@@ -45,6 +47,22 @@ function RoleManagement() {
         console.error("Error fetching roles:", err);
         setLoading(false);
       });
+
+
+      // Fetch users to extract unique roles
+    axios
+    .get("http://localhost:5000/users")
+    .then((response) => {
+      // Extract unique roles from users data
+      const uniqueRoles = [
+        ...new Set(response.data.map((user) => user.role)),
+      ];
+      setUserRoles(uniqueRoles);
+    })
+    .catch((err) => {
+      setError("Failed to fetch users.");
+      console.error("Error fetching users:", err);
+    });
   }, []);
 
   // Delete role by ID
@@ -184,11 +202,16 @@ function RoleManagement() {
             <MenuItem value="" disabled>
               Select Role
             </MenuItem>
-            {["Admin", "User", "Role"].map((role) => (
+            {userRoles.map((role) => (
               <MenuItem key={role} value={role}>
                 {role}
               </MenuItem>
             ))}
+            {/* {["Admin", "User", "Role"].map((role) => (
+              <MenuItem key={role} value={role}>
+                {role}
+              </MenuItem>
+            ))} */}
           </Select>
 
           <Typography variant="subtitle1" sx={{ mt: 2 }}>

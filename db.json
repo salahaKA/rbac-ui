@@ -35,6 +35,24 @@
       "username": "Sfa",
       "role": "Cook",
       "status": "Active"
+    },
+    {
+      "id": "a4c0",
+      "username": "salahaka",
+      "role": "User",
+      "status": "Inactive"
+    },
+    {
+      "id": "bbf9",
+      "username": "salaha    ka",
+      "role": "User",
+      "status": "Inactive"
+    },
+    {
+      "id": "5355",
+      "username": "Salaha Kadeejath",
+      "role": "Coding",
+      "status": "Inactive"
     }
   ],
   "roles": [
@@ -73,6 +91,20 @@
     {
       "id": "3c33",
       "name": "Role",
+      "permissions": [
+        "Write"
+      ]
+    },
+    {
+      "id": "edc9",
+      "name": "Roler",
+      "permissions": [
+        "Delete"
+      ]
+    },
+    {
+      "id": "0ba3",
+      "name": "Coding",
       "permissions": [
         "Write"
       ]
