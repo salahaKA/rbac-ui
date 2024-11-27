@@ -1,21 +1,9 @@
 {
   "users": [
     {
-      "id": "1",
-      "username": "SalahaKA",
-      "role": "Admin",
-      "status": "Active"
-    },
-    {
       "id": "2",
       "username": "Jane Smith",
       "role": "User",
-      "status": "Inactive"
-    },
-    {
-      "id": "d674",
-      "username": "admin",
-      "role": "Admin",
       "status": "Inactive"
     },
     {
@@ -31,8 +19,8 @@
       "name": "Admin",
       "permissions": [
         "Read",
-        "Write",
-        "Delete"
+        "Delete",
+        "Write"
       ]
     },
     {
@@ -52,10 +40,10 @@
       ]
     },
     {
-      "id": "7d25",
-      "name": "User",
+      "id": "91a4",
+      "name": "Admin",
       "permissions": [
-        "Write"
+        "Read"
       ]
     }
   ]

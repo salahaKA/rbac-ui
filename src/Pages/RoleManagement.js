@@ -27,6 +27,7 @@ function RoleManagement() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [open, setOpen] = useState(false);
+  
   const [newRole, setNewRole] = useState({
     name: "",
     permissions: [],
