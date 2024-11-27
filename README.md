@@ -35,3 +35,26 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 #######################################################
 
+Updated Project Features
+1. Role-Based Access Control (RBAC) UI
+User Management:
+Ability to view users.
+CRUD (Create, Read, Update, Delete) operations for users.
+Option to assign roles to users and manage their status (Active/Inactive).
+Role Management:
+Created functionality to manage roles, including adding and deleting roles.
+Ability to assign roles to users.
+Dynamic permissions for roles (e.g., Read, Write, Delete).
+2. Dynamic Permissions:
+Implemented role permissions management (Read, Write, Delete).
+Implemented checkboxes for selecting permissions when creating or editing roles.
+Permissions can be modified dynamically by selecting or deselecting permissions.
+3. UI/UX Design:
+Added Material-UI components to create a clean and responsive layout.
+User-friendly dialogs for adding and editing roles and users.
+Styled tables to display roles, users, and permissions.
+4. API Simulation (Mock API):
+Created mock API endpoints using axios for CRUD operations (create, read, update, delete) on roles and users.
+Simulated server responses to validate functionality and display real-time data changes in the UI.
+
+##########################################
