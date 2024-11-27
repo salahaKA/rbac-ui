@@ -122,11 +122,11 @@ function RoleManagement() {
     }
   };
 
-  // Update form fields
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewRole((prev) => ({ ...prev, [name]: value }));
-  };
+  // // Update form fields
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setNewRole((prev) => ({ ...prev, [name]: value }));
+  // };
 
   return (
     <Box>
